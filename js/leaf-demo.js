@@ -22,7 +22,7 @@ window.onload = () => {
       var mymap = L.map('map', {
           center: [position.coords.latitude, position.coords.longitude],
           maxZoom: 18,
-          minZoom: 3,
+          minZoom: 2,
           zoom: 18,
       });
       // mymap.locate({setView: true, watch: true});
