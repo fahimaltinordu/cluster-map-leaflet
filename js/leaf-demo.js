@@ -16,7 +16,7 @@ window.onload = () => {
       //lat-long info for bottom
       document.getElementById('currentlocation').innerHTML=`latitude: ${position.coords.latitude.toFixed(6)} || longitude: ${position.coords.longitude.toFixed(6)}`;
       
-
+      
         
       //leaflet.js map tracking
       var mymap = L.map('map', {
@@ -25,14 +25,22 @@ window.onload = () => {
           minZoom: 2,
           zoom: 18,
       });
-      // mymap.locate({setView: true, watch: true});
+      mymap.locate({ watch: true});
 
+      var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap);
 
-      L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap);
-
-      L.circle([position.coords.latitude, position.coords.longitude], { 
+      var circle = L.circle([position.coords.latitude, position.coords.longitude], { 
           color: '#3388ff', 
           radius: 20.0 }).addTo(mymap);
+      
+      function onLocationFound(e) {
+          var lat = (e.latlng.lat);
+          var lng = (e.latlng.lng);
+          var newLatLng = new L.LatLng(lat, lng);
+          marker.setLatLng(newLatLng); 
+          circle.setLatLng(newLatLng); 
+      }
+      mymap.on('locationfound', onLocationFound);  
 
       //OPENSTREETMAP TILE
       const titleURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
