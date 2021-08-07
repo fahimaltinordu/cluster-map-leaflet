@@ -51,3 +51,9 @@ body {
     height:100%;
     /* position: absolute; top:0; bottom:0; right:0; left:0;  */
 }
+
+@media screen and (max-width: 425px) {
+    #wrapper #currentlocation {
+        font-size: 0.6rem;
+      }
+}
