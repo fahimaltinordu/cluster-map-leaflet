@@ -38,34 +38,68 @@ body {
     height:93%;
     display: block;
     overflow: hidden;
-    /* box-shadow: 0 -10px 5px -3px rgba(0, 0, 0, 0.8); */
-  }
+}
 #wrapper #map-container #map {
     height:100%;
 }
-#wrapper #map-container #permissionButton {
-    margin:auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 40px;
-    width: 180px;
+#wrapper #map-container #permissionError {
+    margin:20px auto 10px;
+    /* height: 90%; */
+    width: 90%;
     border-radius: 40px;
-    cursor:pointer;
     user-select:none;
-    outline:none;
-    border:none;
-    font-weight: 700;
     color: white;
     background-color: #343332;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+#wrapper #map-container #permissionError h2 {
+    font-weight: 700;
+    margin-bottom:10px;
+    margin-top:10px;
+    text-decoration: underline;
+    font-size: 1.25rem;
+}
+#wrapper #map-container #permissionError h4 {
+    font-weight: 700;
+    margin-bottom:10px;
+    margin-top:10px;
+    text-decoration: underline;
+    font-size: 1rem;
+}
+#wrapper #map-container #permissionError ul {
+    width:80%;
+}
+#wrapper #map-container #permissionError ul li {
+    font-weight: 400;
+    margin-bottom:4px;
+    margin-top:2px;
+    font-size: 0.7rem;
+}
+#wrapper #map-container #permissionError a {
+    height:40px;
+    width:90%;
+    border-radius: 40px;
+    user-select:none;
+    color: white;
+    font-size: 1rem;
+    background-color: dodgerblue;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    margin-top:15px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom:20px;
     transition:transform 0.3s ease;
 }
-#wrapper #map-container button#permissionButton:active {
+#wrapper #map-container #permissionError a:active {
     transform:scale(0.88);
 }
+
 #loader-area {
     width:100%;
     height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
