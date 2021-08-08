@@ -53,6 +53,8 @@ body {
     height: 40px;
     width: 180px;
     border-radius: 40px;
+    cursor:pointer;
+    user-select:none;
     outline:none;
     border:none;
     font-weight: 700;
