@@ -43,10 +43,9 @@ body {
     height:100%;
 }
 #wrapper #map-container #permissionError {
-    margin:20px auto 10px;
-    /* height: 90%; */
-    width: 90%;
-    border-radius: 40px;
+    margin:auto;
+    height: 100%;
+    width: 100%;
     user-select:none;
     color: white;
     background-color: #343332;
