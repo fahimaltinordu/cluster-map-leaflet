@@ -15,15 +15,14 @@ body {
 #wrapper {
     height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
     height: calc(var(--vh, 1vh) * 100);
+    width:100%;
+    position:absolute;
+    z-index:0;
 }
 
 #wrapper #currentlocation {
-    /* position: fixed;
-    z-index: 10000; */
     background-color: rgb(52, 51, 50);
     padding: 10px;
-    /* bottom: 0;
-    left: 0; */
     width:100%;
     height:7%;
     color:rgb(255, 255, 255);
@@ -34,22 +33,63 @@ body {
     font-weight: 400;
 }
 #wrapper #map-container {
-    /* position: fixed;
-    z-index: 10000; */
-    background-color: rgb(52, 51, 50);
-    /* bottom: 20px;
-    left: 0; */
+    background-color: rgb(161, 163, 165);
     width:100%;
     height:93%;
     display: block;
-    /* border-top-left-radius: 50%;
-    border-top-right-radius: 50%; */
     overflow: hidden;
     /* box-shadow: 0 -10px 5px -3px rgba(0, 0, 0, 0.8); */
   }
 #wrapper #map-container #map {
     height:100%;
-    /* position: absolute; top:0; bottom:0; right:0; left:0;  */
+}
+#wrapper #map-container #permissionButton {
+    margin:auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    width: 180px;
+    border-radius: 40px;
+    outline:none;
+    border:none;
+    font-weight: 700;
+    color: white;
+    background-color: #343332;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    transition:transform 0.3s ease;
+}
+#wrapper #map-container button#permissionButton:active {
+    transform:scale(0.88);
+}
+#loader-area {
+    width:100%;
+    height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100);
+    background-color: rgb(161, 163, 165);
+    position: absolute;
+    z-index: 1;
+}
+#loader-anim {
+    width:120px;
+    height:120px;
+    border:15px solid gray;
+    border-top-color: dodgerblue;
+    margin:auto;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius: 50%;
+    animation: spinn 1.5s infinite linear;
+}
+@keyframes spinn {
+    100% {
+        transform:rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 425px) {
