@@ -102,11 +102,27 @@ window.onload = () => {
     d.removeChild(d_nested);
     
     //izin alamazsa map-container'a izin için buton ekler
-    var permissionBtn = document.createElement("button");
-    permissionBtn.setAttribute("id", "permissionButton");
-    var textBtn = document.createTextNode("Get Permission");
-    permissionBtn.appendChild(textBtn);
-    document.getElementById("map-container").appendChild(permissionBtn);
+    var permissionErr = document.createElement("div");
+    permissionErr.setAttribute("id", "permissionError");
+
+    permissionErr.innerHTML =  `<h2>Enable Geolocation</h2>
+                                <h4>iOS (iPhone, iPad)</h4>
+                                <ul>
+                                  <li>Open your iOS's Settings app.</li>
+                                  <li>Tap [Privacy] > [Location Services] Make sure that Location Services is ON.</li>
+                                  <li>Tap [Privacy] > [Location Services] > [Safari Websites]</li>
+                                  <li>Tap [Allow Location Access] > Set to [While Using the App]</li>
+                                  <li>After these steps click the "Refresh" button</li> 
+                                </ul>
+                                <h4>Android</h4>
+                                <ul>
+                                  <li>Swipe down from the status bar to open the notification panel, then swipe down further to show all shortcut switches. Touch to location icon turn it on.</li>
+                                  <li>Go to Settings > Location, and enable Access my location.</li>
+                                  <li>After these steps click the "Refresh" button</li> 
+                                </ul>
+                                <a href="#" onclick="window.location.reload(true);">Refresh</a>`;
+
+    document.getElementById("map-container").appendChild(permissionErr);
 
       switch(error.code) {
           case error.PERMISSION_DENIED:
