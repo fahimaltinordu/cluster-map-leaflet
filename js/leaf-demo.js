@@ -3,9 +3,28 @@ let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
+
+//check internet connection
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+
+function updateStatus() {
+  var status = document.getElementById('status');
+  if (navigator.onLine) {
+    status.innerHTML=`You are online`;
+    $('#internet-area').fadeOut();
+  } else {
+    status.innerHTML=`You are offline`;
+    $('#internet-area').fadeIn();
+    document.getElementById('internet-area').innerHTML = `<h4>No internet connection. In order to see <b>ILCity</b>, please activate your internet. </h4>
+    <a id="refreshBtn" href="#" onclick="window.location.reload(true);">Refresh</a>
+    <a id="refreshBtn" href="index.html">Back</a>`;
+  }
+}
+updateStatus()
+///////////////////////////////////////////////////
+
 window.onload = () => {
-
-
 
   if( navigator.geolocation ) {
           const watchId = navigator.geolocation.watchPosition( success, fail );
@@ -120,7 +139,7 @@ window.onload = () => {
                                   <li>Go to Settings > Location, and enable Access my location.</li>
                                   <li>After these steps click the "Refresh" button</li> 
                                 </ul>
-                                <a href="#" onclick="window.location.reload(true);">Refresh</a>`;
+                                <a id="refreshBtn" href="#" onclick="window.location.reload(true);">Refresh</a>`;
 
     document.getElementById("map-container").appendChild(permissionErr);
 
