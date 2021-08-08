@@ -3,8 +3,10 @@ let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-
 window.onload = () => {
+
+
+
   if( navigator.geolocation ) {
           const watchId = navigator.geolocation.watchPosition( success, fail );
   }
@@ -13,11 +15,13 @@ window.onload = () => {
   }
 
   function success (position) {
+      $('#loader-area').fadeOut(); // başarılı lokasyon erişiminden sonra loading ikon kaldırır
+
+
       //lat-long info for bottom
       document.getElementById('currentlocation').innerHTML=`latitude: ${position.coords.latitude.toFixed(6)} || longitude: ${position.coords.longitude.toFixed(6)}`;
       
       
-        
       //leaflet.js map tracking
       var mymap = L.map('map', {
           center: [position.coords.latitude, position.coords.longitude],
@@ -25,7 +29,7 @@ window.onload = () => {
           minZoom: 2,
           zoom: 18,
       });
-      mymap.locate({ watch: true});
+      mymap.locate({ watch: true}); //for realtime tracking 
 
       var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap);
 
@@ -42,6 +46,9 @@ window.onload = () => {
       }
       mymap.on('locationfound', onLocationFound);  
 
+
+
+
       //OPENSTREETMAP TILE
       const titleURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
       const attribution = '© OpenStreetMap';
@@ -51,6 +58,15 @@ window.onload = () => {
       });
       tiles.addTo(mymap);
 
+      //harita tile yüklenirken loading ekranı gösterme
+      tiles.on('loading', function (event) {
+        $('#loader-area').fadeIn(); 
+      });
+      tiles.on('load', function (event) {
+        $('#loader-area').fadeOut(); 
+      });
+
+      //cluster part
       var myURL = jQuery('script[src$="leaf-demo.js"]')
         .attr('src')
         .replace('leaf-demo.js', '')
@@ -78,6 +94,20 @@ window.onload = () => {
   }
   
   function fail (error) {
+    $('#loader-area').fadeOut(); // lokasyon iznindeki sorunlarda loading ikon kalkar
+    
+    //izin alamazsa map-container dan map divini kaldırır
+    let d = document.getElementById("map-container");
+    let d_nested = document.getElementById("map");
+    d.removeChild(d_nested);
+    
+    //izin alamazsa map-container'a izin için buton ekler
+    var permissionBtn = document.createElement("button");
+    permissionBtn.setAttribute("id", "permissionButton");
+    var textBtn = document.createTextNode("Get Permission");
+    permissionBtn.appendChild(textBtn);
+    document.getElementById("map-container").appendChild(permissionBtn);
+
       switch(error.code) {
           case error.PERMISSION_DENIED:
           document.getElementById('currentlocation').innerHTML=`User denied Geolocation`;
