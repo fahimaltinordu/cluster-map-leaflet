@@ -120,32 +120,13 @@ window.onload = () => {
     
     
     //izin alamazsa map-container dan map divini kaldırır
-    let d = document.getElementById("map-container");
-    let d_nested = document.getElementById("map");
-    d.removeChild(d_nested);
+    var d_nested = document.getElementById("map");
+    d_nested.style.display = "none";
     
     //izin alamazsa map-container'a izin için buton ekler
-    var permissionErr = document.createElement("div");
-    permissionErr.setAttribute("id", "permissionError");
+    var d_perm = document.getElementById("permissionError");
+    d_perm.style.display = "flex";
 
-    permissionErr.innerHTML =  `<h2>Enable Geolocation</h2>
-                                <h4>iOS (iPhone, iPad)</h4>
-                                <ul>
-                                  <li>Open your iOS's Settings app.</li>
-                                  <li>Tap [Privacy] > [Location Services] Make sure that Location Services is ON.</li>
-                                  <li>Tap [Privacy] > [Location Services] > [Safari Websites]</li>
-                                  <li>Tap [Allow Location Access] > Set to [While Using the App]</li>
-                                  <li>After these steps click the "Refresh" button</li> 
-                                </ul>
-                                <h4>Android</h4>
-                                <ul>
-                                  <li>Swipe down from the status bar to open the notification panel, then swipe down further to show all shortcut switches. Touch to location icon turn it on.</li>
-                                  <li>Go to Settings > Location, and enable Access my location.</li>
-                                  <li>After these steps click the "Refresh" button</li> 
-                                </ul>
-                                <a id="refreshBtn" href="#" onclick="window.location.reload(true);">Refresh</a>`;
-
-    document.getElementById("map-container").appendChild(permissionErr);
 
       switch(error.code) {
           case error.PERMISSION_DENIED:
@@ -163,23 +144,36 @@ window.onload = () => {
       }
   }
 
-    
-//anlık lokasyon izni değişimi
-// navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
-    
-//       console.log('geolocation permission state is ', permissionStatus.state);
-//       if (this.state != "granted") {
-//         alert("activate geolocation to continue")
-//       } 
-//       permissionStatus.addEventListener('change', function() { 
-//           console.log('geolocation permission state has changed to ', this.state);
-//           if (this.state != "granted") {
-//             alert("activate geolocation to continue")
-//           } 
-//       });
+  //anlık lokasyon izni değişimi
+navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
+  var d_nested = document.getElementById("map");
+  var d_perm = document.getElementById("permissionError");
 
-// });
+permissionStatus.addEventListener('change', function() { 
+  console.log('geolocation permission state has changed to ', this.state);
+ 
+  
 
+  if (this.state == "granted") {
+    d_perm.style.display = "none";
+    const watchId = navigator.geolocation.watchPosition( success, fail );
+    d_nested.style.display = "block";
+    document.getElementById('currentlocation').innerHTML=
+    `Geolocation permission state has changed to ${this.state}`;
+  } else if (this.state == "denied") {
+    d_nested.style.display = "none";
+    d_perm.style.display = "flex";
+    document.getElementById('currentlocation').innerHTML=
+    `Geolocation permission state has changed to ${this.state}`;
+  } else {
+    d_perm.style.display = "none";
+    d_nested.style.display = "block";
+    document.getElementById('currentlocation').innerHTML=
+    `Geolocation permission state has changed to ${this.state}`;
+  }
+});
+
+});
 
 
 }
