@@ -9,6 +9,7 @@ window.addEventListener('online', updateStatus);
 window.addEventListener('offline', updateStatus);
 
 function updateStatus() {
+  
   var status = document.getElementById('status');
   if (navigator.onLine) {
     status.innerHTML=`You are online`;
@@ -16,16 +17,18 @@ function updateStatus() {
   } else {
     status.innerHTML=`You are offline`;
     $('#internet-area').fadeIn();
-    document.getElementById('internet-area').innerHTML = `<h4>No internet connection. In order to see <b>ILCity</b>, please activate your internet. </h4>
-    <a id="refreshBtn" href="#" onclick="window.location.reload(true);">Refresh</a>
-    <a id="refreshBtn" href="index.html">Back</a>`;
+    document.getElementById('internet-area').innerHTML = `<h4>No internet connection. In order to see <b>ILCity</b>, please activate your internet and just wait a second.</h4>
+    <a id="refreshBtn" href="#" onclick="window.location.reload(true);">Back</a>`;
   }
 }
+
 updateStatus()
+
 ///////////////////////////////////////////////////
 
 window.onload = () => {
 
+  
   if( navigator.geolocation ) {
           const watchId = navigator.geolocation.watchPosition( success, fail );
   }
@@ -115,6 +118,7 @@ window.onload = () => {
   function fail (error) {
     $('#loader-area').fadeOut(); // lokasyon iznindeki sorunlarda loading ikon kalkar
     
+    
     //izin alamazsa map-container dan map divini kaldırır
     let d = document.getElementById("map-container");
     let d_nested = document.getElementById("map");
@@ -158,6 +162,25 @@ window.onload = () => {
               break;
       }
   }
+
+    
+//anlık lokasyon izni değişimi
+// navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
+    
+//       console.log('geolocation permission state is ', permissionStatus.state);
+//       if (this.state != "granted") {
+//         alert("activate geolocation to continue")
+//       } 
+//       permissionStatus.addEventListener('change', function() { 
+//           console.log('geolocation permission state has changed to ', this.state);
+//           if (this.state != "granted") {
+//             alert("activate geolocation to continue")
+//           } 
+//       });
+
+// });
+
+
 
 }
 
